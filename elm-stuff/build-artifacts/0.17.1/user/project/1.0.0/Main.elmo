@@ -1,0 +1,92 @@
+var _user$project$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$none;
+};
+var _user$project$Main$buzz = function (num) {
+	return _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], num, 5),
+		0);
+};
+var _user$project$Main$fizz = function (num) {
+	return _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], num, 3),
+		0);
+};
+var _user$project$Main$fizzbuzz = function (num) {
+	return _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], num, 5),
+		0) && _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], num, 3),
+		0);
+};
+var _user$project$Main$calFizzBuzz = function (num) {
+	return _user$project$Main$fizzbuzz(num) ? 'FizzBuzz' : (_user$project$Main$fizz(num) ? 'Fizz' : (_user$project$Main$buzz(num) ? 'Buzz' : ''));
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		var _p1 = _elm_lang$core$String$toInt(_p0._0);
+		if (_p1.ctor === 'Err') {
+			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		} else {
+			var con = _user$project$Main$calFizzBuzz(_p1._0);
+			return {
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Native_Utils.update(
+					model,
+					{condition: con}),
+				_1: _elm_lang$core$Platform_Cmd$none
+			};
+		}
+	});
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {input: a, condition: b};
+	});
+var _user$project$Main$init = {
+	ctor: '_Tuple2',
+	_0: A2(_user$project$Main$Model, 0, ''),
+	_1: _elm_lang$core$Platform_Cmd$none
+};
+var _user$project$Main$OnInput = function (a) {
+	return {ctor: 'OnInput', _0: a};
+};
+var _user$project$Main$counterInput = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$input,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$type$('number'),
+						_elm_lang$html$Html_Events$onInput(_user$project$Main$OnInput)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[]))
+			]));
+};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$Main$counterInput(model),
+				A2(
+				_elm_lang$html$Html$h3,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(model.condition)
+					]))
+			]));
+};
+var _user$project$Main$main = {
+	main: _elm_lang$html$Html_App$program(
+		{init: _user$project$Main$init, view: _user$project$Main$view, update: _user$project$Main$update, subscriptions: _user$project$Main$subscriptions})
+};
